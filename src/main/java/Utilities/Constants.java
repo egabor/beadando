@@ -1,3 +1,4 @@
+package Utilities;
 /**
  * A {@code Constants} osztályban kaptak helyet a konstansok.
  * @author gaboreszenyi
