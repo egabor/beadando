@@ -398,8 +398,8 @@ public class GameController {
         currentPlayer = changePlayer(currentPlayer);
         
         if (option == Constants.kSaveLoadOptionJDBC) {
-        	JDBC jdbc = new JDBC();
-        	jdbc.saveGame(markersToSave);
+        	JDBC jdbcManager = new JDBC(Constants.tableName);
+        	jdbcManager.saveGame(markersToSave);
         } else if (option == Constants.kSaveLoadOptionXML) {
             XML.saveGame(markersToSave);
         }
@@ -418,8 +418,8 @@ public class GameController {
         ArrayList<Marker> loadedMarkers = new ArrayList<Marker>();
         
         if (option == Constants.kSaveLoadOptionJDBC) {
-        	JDBC jdbc = new JDBC();
-            loadedMarkers = JDBC.loadGame();
+        	JDBC jdbcManager = new JDBC(Constants.tableName);
+            loadedMarkers = jdbcManager.loadGame();
         } else if (option == Constants.kSaveLoadOptionXML) {
             loadedMarkers = XML.loadGame();
         }
