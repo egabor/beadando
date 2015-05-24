@@ -1,3 +1,5 @@
+package Tests;
+
 import java.util.ArrayList;
 
 import org.junit.Test;
@@ -7,7 +9,7 @@ import Models.Marker;
 import Utilities.Constants;
 import static org.junit.Assert.*;
 
-public class GameControllerTests {
+public class GameControllerTest {
 
 	@Test
 	public void testPlayerChangeRedToBlue() {

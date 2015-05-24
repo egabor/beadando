@@ -1,11 +1,9 @@
-
 import org.junit.Test;
-
 import Models.Marker;
 import Utilities.Constants;
 import static org.junit.Assert.*;
 
-public class MarkerTests {
+public class MarkerTest {
 	
 	private Boolean isGood;
 
