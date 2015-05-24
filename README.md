@@ -19,6 +19,11 @@ mvn install:install-file -Dfile=lib\ojdbc6.jar -DgroupId=com.oracle -DartifactId
 
 A használathoz szükséges megadni az src/main/resources/project.properties fájlban a jdbc.username, jdbc.password és a jdbc.url értékeket.
 
+#### Indítás:
+```sh
+mvn clean install exec:java -Dexec.mainClass="Controllers.GameController"
+```
+
 ### Egyéb követelmények
 
 * Minimum maven verzió: __3__
