@@ -50,7 +50,6 @@ public class XML {
 
 			File f = new File(filePath);
 			if(!f.exists()) { 
-				logger.warn("Nem létezik az xml fájl, ahonnan egy előző mentést be lehetne tölteni.");
 				return markers; 
 			} 
 
