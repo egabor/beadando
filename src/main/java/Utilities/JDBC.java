@@ -140,7 +140,6 @@ public class JDBC {
     /**
      * A {@code isTableExist()} metódus elelnőrzi, hogy a paraméterként megadott tábla létezik-e.
      * @param table Az ellenőrizni kívánt tábla neve.
-     * @return Igaz, ha a tábla létezik.
      */
     private static void isTableExist(final String table) {
         try (Connection conn = DriverManager.getConnection(url, username, password)) {

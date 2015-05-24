@@ -52,7 +52,10 @@ public class GameController {
     
     
     
-    
+    /**
+     * Az alkalmazás a {@code main()} metódussal indul.
+     * @param args paraméterek
+     */
     public static void main(String[] args) {
         gs = new GameScene("Beadandó app");
         gs.initialize(); 
