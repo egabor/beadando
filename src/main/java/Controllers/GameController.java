@@ -428,7 +428,11 @@ public class GameController {
             loadedMarkers = XML.loadGame();
         }
         // Ha nem kapjuk vissza mindet, akkor ne tegyük tönkre a felületet.
-        if (loadedMarkers.size() != 12) return;
+        if (loadedMarkers.size() != 12) {
+        	logger.warn("Nem sikerült betölteni a játékállást.");
+        	return;
+        }
+        logger.debug("Sikeres betöltés");
         
         for (int i = 0; i < markers.size(); i++) {
             Marker marker = markers.get(i);

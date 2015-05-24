@@ -171,7 +171,7 @@ public class JDBC {
     * @param table A létrehozni kívánt tábla.
     */
     private static void createTable(String table) {
-        logger.debug(table + " nevű tábla létrehozása.");
+        logger.warn(table + " nevű tábla létrehozása.");
         //isTableExist(table);
     	try (Connection conn = DriverManager.getConnection(url, username, password)) {
     		String q = "CREATE TABLE "+table+" ( AZON NUMBER NOT NULL ENABLE, SOR NUMBER, OSZLOP NUMBER, ALLAPOT NUMBER, CONSTRAINT "+table+"_PK PRIMARY KEY (AZON) )";
