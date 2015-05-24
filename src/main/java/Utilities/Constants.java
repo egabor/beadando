@@ -102,21 +102,6 @@ public class Constants {
     public static final String blueTurnText = "Kék jön.";
     
     /**
-     * A {@code kjdbcUrl} konstans tárolja a távoli adatbázis elérési útját.
-     */
-    public static final String kjdbcUrl = "jdbc:oracle:thin:@db.inf.unideb.hu:1521:ora11g";
-    
-    /**
-     * A {@code kDBUserName} konstans tárolja a távoli adatbázishoz a felhasználónevet.
-     */
-    public static final String kDBUserName = "h_gackqv";
-    
-    /**
-     * A {@code kDBPassword} konstans tárolja a távoli adatbázishoz a jelszót.
-     */
-    public static final String kDBPassword = "kassai";
-    
-    /**
      * A {@code tableName} konstans tárolja annak a táblának a nevét amelynek szerepelnie kell a adatbázisban.
      * Ide fogjuk menteni a játékállást.
      */
