@@ -1,4 +1,5 @@
 package Utilities;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,6 +8,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -16,6 +19,7 @@ import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.SAXException;
 
 import Models.Marker;
+import Views.GameScene;
 
 /**
  * Az XML osztály segítségével tudjuk menteni a játékállást egy xml fájlba, illetve az elmenett játékot innen tudjuk visszatölteni.
@@ -24,6 +28,11 @@ import Models.Marker;
  */
 public class XML {
 	
+	
+	/**
+     * A {@code logger} változó segítségével fogunk tudni naplózni.
+     */
+    private static Logger logger = LoggerFactory.getLogger(XML.class);
 	
 	/**
 	 * A {@code loadGame()} metódus végzi el elmentett játékállás betöltését az xml fájlból.
@@ -35,10 +44,19 @@ public class XML {
 			//dbf.setValidating(true);
 			dbf.setFeature("http://apache.org/xml/features/dom/include-ignorable-whitespace",false);
 			DocumentBuilder parser = dbf.newDocumentBuilder();
-			
-			Document doc = parser.parse("save.xml");
-			
 			ArrayList<Marker> markers = new ArrayList<Marker>();
+			
+			String filePath = "save.xml";
+
+			File f = new File(filePath);
+			if(!f.exists()) { 
+				logger.warn("Nem létezik az xml fájl, ahonnan egy előző mentést be lehetne tölteni.");
+				return markers; 
+			} 
+
+			
+			Document doc = parser.parse(filePath);
+			
 			NodeList elements = doc.getElementsByTagName("marker");
 			for (int i = 0; i < elements.getLength(); i++) {
 				Element element = (Element) elements.item(i);
