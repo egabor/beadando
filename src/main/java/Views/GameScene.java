@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import Utilities.Constants;
 import Controllers.GameController;
-import Models.Marker;
 
 /**
  * A {@code GameScene} osztály felel a játék felületének a kinézetéért, az interakciók kezeléséért és az interakciókra reagálásért.

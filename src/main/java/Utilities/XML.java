@@ -19,7 +19,6 @@ import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.SAXException;
 
 import Models.Marker;
-import Views.GameScene;
 
 /**
  * Az XML osztály segítségével tudjuk menteni a játékállást egy xml fájlba, illetve az elmenett játékot innen tudjuk visszatölteni.

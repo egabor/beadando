@@ -1,15 +1,8 @@
 package Controllers;
 import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Properties;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -432,7 +425,7 @@ public class GameController {
         	logger.warn("Nem sikerült betölteni a játékállást.");
         	return;
         }
-        logger.debug("Sikeres betöltés");
+        logger.debug("Sikeres betöltés.");
         
         for (int i = 0; i < markers.size(); i++) {
             Marker marker = markers.get(i);
