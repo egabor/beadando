@@ -53,6 +53,17 @@ public class MarkerTest {
 		assertTrue(isGood);
 	}
 	
+	@Test
+	public void testMaker5() {
+		Marker marker = new Marker(2,5);
+		isGood = true;
+		if (!marker.hasAbove()) isGood = false;
+		if (!marker.hasBelow()) isGood = false;
+		if (!marker.hasLeft()) isGood = false;
+		if (!marker.hasRight()) isGood = false;
+		assertTrue(isGood);
+	}
+	
 	
 
 }
