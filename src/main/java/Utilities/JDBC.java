@@ -44,10 +44,17 @@ public class JDBC {
  	 */
     public static String url = "";
     
+    /**
+ 	 * Az {@code url} változó tárolja a távoli adatbázis elérési útját.
+ 	 */
+    public static String tableName = "";
+    
  	/**
  	 * A {@code JDBC()} egy konstruktor, ami betölti a távoli adatbázis eléréséhez szükséges beállításokat.
+ 	 * @param table A tábla neve, amelyet használni fogunk.
  	 */
-    public JDBC() {
+ 	public JDBC(String table) {
+    	tableName = table;
     	try {
 			Properties properties = new Properties();
 			properties.load(getClass().getClassLoader().getResourceAsStream("project.properties"));
@@ -61,7 +68,7 @@ public class JDBC {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	isTableExist(Constants.tableName);
+    	isTableExist(tableName);
     }
     
     
@@ -70,15 +77,15 @@ public class JDBC {
      * A {@code loadGame()} metódus végzi el elmentett játékállás betöltését a távoli adatbázisból.
      * @return Az elmetett játék állapota.
      */
-    public static ArrayList<Marker> loadGame() {
+    public ArrayList<Marker> loadGame() {
         ArrayList<Marker> markers = new ArrayList<Marker>();
         
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
-           //isTableExist(Constants.tableName);
+           //isTableExist(tableName);
                 
                 
                 try (Statement stmt = conn.createStatement()) {
-                    try (ResultSet rset = stmt.executeQuery("SELECT * FROM " + Constants.tableName)) {
+                    try (ResultSet rset = stmt.executeQuery("SELECT * FROM " + tableName)) {
                         while (rset.next()) {
                             //logger.debug(rset.getInt(1) +", "+ rset.getInt(2) +", "+rset.getInt(3) +", "+rset.getInt(4));
                             Marker marker = new Marker(0,0);
@@ -100,15 +107,15 @@ public class JDBC {
      * Csatlakozik az adatbázishoz és feltölti adatokkal.
      * @param markers A játék jelenlegi állapotát reprezentáló markerek.
      */
-    public static void saveGame(ArrayList<Marker> markers) {
-        removeAllRecordsFromTable(Constants.tableName);
-        //isTableExist(Constants.tableName);
+    public void saveGame(ArrayList<Marker> markers) {
+        removeAllRecordsFromTable(tableName);
+        //isTableExist(tableName);
         
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
                 try (Statement stmt = conn.createStatement()) {
                     for (int i = 0; i < markers.size(); i++) {
                         Marker marker = markers.get(i);
-                        try (ResultSet rset = stmt.executeQuery("INSERT INTO "+Constants.tableName+" (AZON, SOR, OSZLOP, ALLAPOT) VALUES ('"+(i+1)+"','"+marker.row+"', '"+marker.column+"', '"+marker.markerState+"')")) {
+                        try (ResultSet rset = stmt.executeQuery("INSERT INTO "+tableName+" (AZON, SOR, OSZLOP, ALLAPOT) VALUES ('"+(i+1)+"','"+marker.row+"', '"+marker.column+"', '"+marker.markerState+"')")) {
                             
                         }
                     }
