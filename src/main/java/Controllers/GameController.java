@@ -68,7 +68,7 @@ public class GameController extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Game");
         logger.debug("Controller felépítése.");
         gs = new GameScene();
         gs.setGC(this);
