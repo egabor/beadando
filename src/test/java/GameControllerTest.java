@@ -5,6 +5,8 @@ import org.junit.Test;
 import Controllers.GameController;
 import Models.Marker;
 import Utilities.Constants;
+import oracle.jdbc.Const;
+
 import static org.junit.Assert.*;
 
 public class GameControllerTest {
@@ -365,23 +367,27 @@ public class GameControllerTest {
 		assertTrue(true);
 	}
 	
+	
 	@Test
 	public void saveLoad() {
-		ArrayList<Marker> gameToSave = GameController.mergeMarkers(GameController.initEmptyMarkers(),GameController.initBluePlayer()); 
-		gameToSave = GameController.mergeMarkers(gameToSave, GameController.initRedPlayer());
-		System.out.println(gameToSave.size());
+		ArrayList<Marker> gameToSave = GameController.initEmptyMarkers(); 
+		ArrayList<Marker> red = GameController.initRedPlayer();
+		ArrayList<Marker> blue = GameController.initBluePlayer();
+		gameToSave = GameController.mergeMarkers(gameToSave, red);
+		gameToSave = GameController.mergeMarkers(gameToSave, blue);
 
-		GameController.saveGame(GameController.getGameStateToSave(gameToSave));
+
+		GameController.saveGame(gameToSave, Constants.kPlayerBlue);
 		ArrayList<Marker> loadedGame = GameController.getGameStateToLoad();
-		System.out.println(loadedGame.size());
+		if (loadedGame.size() == 0) assertTrue(false);
 
         
-        
-        /*for (int i = 0; i < gameToSave.size(); i++) {
+        //TODO ezt befejezni
+        for (int i = 0; i < gameToSave.size(); i++) {
         	if (!gameToSave.get(i).equals(loadedGame.get(i))) {
-        		//assertTrue(false);
+        		assertTrue(false);
         	}
-        }*/
+        }
         assertTrue(true);
 		
 	}
