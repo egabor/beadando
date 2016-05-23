@@ -73,10 +73,11 @@ public class GameController extends Application {
         
         freeMarkers = new ArrayList<Marker>();
 
-        lastMarker = null; 
-        initEmptyMarkers();
-        initBluePlayer();
-        initRedPlayer();
+        lastMarker = null;
+        if (markers != null) markers.clear();
+        markers = mergeMarkers(initEmptyMarkers(), initBluePlayer());
+        markers = mergeMarkers(markers, initRedPlayer());
+        makeVisibleOnScreen(markers);
         currentPlayer = changePlayer(Constants.kPlayerNone);
     }
     
@@ -84,9 +85,10 @@ public class GameController extends Application {
     public void reset() {
     	freeMarkers = new ArrayList<Marker>();
         lastMarker = null; 
-        initEmptyMarkers();
-        initBluePlayer();
-        initRedPlayer();
+        if (markers != null) markers.clear();
+        markers = mergeMarkers(initEmptyMarkers(), initBluePlayer());
+        markers = mergeMarkers(markers, initRedPlayer());
+        makeVisibleOnScreen(markers);
         currentPlayer = changePlayer(Constants.kPlayerNone);
     }
     
@@ -98,38 +100,47 @@ public class GameController extends Application {
         
     }*/
     
+    public static ArrayList<Marker> mergeMarkers(ArrayList<Marker> listToOverWrite, ArrayList<Marker> newValues) {
+    	for (int i = 0; i < newValues.size(); i++) {
+    		int indexToOverWrite = newValues.get(i).getIndex();
+    		listToOverWrite.set(indexToOverWrite, newValues.get(i));
+    	}
+    	return listToOverWrite;
+    }
 
     /**
      * A {@code initEmptyMarkers()} metódus az üres {@code Marker}eket fogja inicializálni.
      */
-    public void initEmptyMarkers() {
-        if (markers != null) markers.clear();
-        markers = new ArrayList<Marker>();
+    public static ArrayList<Marker> initEmptyMarkers() {
+    	//TODO ezt valami más helyre rakni
+        //if (markers != null) markers.clear();
+        ArrayList<Marker> emptyMarkers = new ArrayList<Marker>();
         for (int i = 0; i < Constants.kNumberOfRows; i++) {
             for (int j = 0; j < Constants.kNumberOfColumns; j++) {
                 Marker marker = new Marker(i,j,Constants.kFieldStateEmpty);
-                markers.add(marker);
-                modifyFieldImageAndState(marker,
+                emptyMarkers.add(marker);
+                /*modifyFieldImageAndState(marker,
                                          Constants.kEmptyFieldImageName,
-                                         Constants.kFieldStateEmpty);
+                                         Constants.kFieldStateEmpty);*/
             }
         }
+        return emptyMarkers;
     }
     
     /**
      * Az {@code initBluePlayer()} metódus a kék játékos inicializálásáért felel.
      */
-    public void initBluePlayer() {
+    public static ArrayList<Marker> initBluePlayer() {
         logger.debug("Kék játékos betöltése:");
         ArrayList<Marker> blueMarkers = new ArrayList<Marker>();
-        blueMarkers.add(new Marker(3,9));
-        blueMarkers.add(new Marker(2,9));
-        blueMarkers.add(new Marker(1,9));
-        blueMarkers.add(new Marker(2,4));
-        blueMarkers.add(new Marker(1,4));
-        blueMarkers.add(new Marker(0,4));
+        blueMarkers.add(new Marker(3,9, Constants.kFieldStateBlue));
+        blueMarkers.add(new Marker(2,9, Constants.kFieldStateBlue));
+        blueMarkers.add(new Marker(1,9, Constants.kFieldStateBlue));
+        blueMarkers.add(new Marker(2,4, Constants.kFieldStateBlue));
+        blueMarkers.add(new Marker(1,4, Constants.kFieldStateBlue));
+        blueMarkers.add(new Marker(0,4, Constants.kFieldStateBlue));
         
-        for (int i = 0; i < blueMarkers.size(); i++) {
+        /*for (int i = 0; i < blueMarkers.size(); i++) {
             Marker blueMarker = blueMarkers.get(i);
             Marker marker = markers.get(blueMarker.getIndex());
             ((Marker)markers.get(marker.getIndex())).markerState = Constants.kFieldStateBlue;
@@ -140,23 +151,24 @@ public class GameController extends Application {
                                      Constants.kBlueFieldImageName,
                                      Constants.kFieldStateBlue);
         }
-        logger.debug("hely(ek)re.");
+        logger.debug("hely(ek)re.");*/
+        return blueMarkers;
     }
     
     /**
      * Az {@code initRedPlayer()} metódus a piros játékos inicializálásáért felel.
      */
-    public void initRedPlayer() {
+    public static ArrayList<Marker> initRedPlayer() {
         logger.debug("Kék játékos betöltése:");
         ArrayList<Marker> redMarkers = new ArrayList<Marker>();
-        redMarkers.add(new Marker(0,0));
-        redMarkers.add(new Marker(1,0));
-        redMarkers.add(new Marker(2,0));
-        redMarkers.add(new Marker(1,5));
-        redMarkers.add(new Marker(2,5));
-        redMarkers.add(new Marker(3,5));
+        redMarkers.add(new Marker(0,0, Constants.kFieldStateRed));
+        redMarkers.add(new Marker(1,0, Constants.kFieldStateRed));
+        redMarkers.add(new Marker(2,0, Constants.kFieldStateRed));
+        redMarkers.add(new Marker(1,5, Constants.kFieldStateRed));
+        redMarkers.add(new Marker(2,5, Constants.kFieldStateRed));
+        redMarkers.add(new Marker(3,5, Constants.kFieldStateRed));
         
-        for (int i = 0; i < redMarkers.size(); i++) {
+        /*for (int i = 0; i < redMarkers.size(); i++) {
             Marker redMarker = redMarkers.get(i);
             Marker marker = markers.get(redMarker.getIndex());
             ((Marker)markers.get(marker.getIndex())).markerState = Constants.kFieldStateRed;
@@ -165,9 +177,10 @@ public class GameController extends Application {
                                      Constants.kRedFieldImageName,
                                      Constants.kFieldStateRed);
         }
-        logger.debug("hely(ek)re.");
+        logger.debug("hely(ek)re.");*/
+        return redMarkers;
     }
-    
+     
     /**
      * A játéktér egy mezőjére kattintva fog végrehajtódni ez a metódus, ahol vizsgálni fogjuk, hogy a kattintott mezőnek vannak-e elérhető szomszédjai, valamint itt fogunk dönteni a mozgatásról is.
      * @param ae {@code ActionEvent} típusú. Ebből fog kiderülni, hogy melyik mezőre kattintottunk.
@@ -396,59 +409,54 @@ public class GameController extends Application {
         return Constants.kPlayerNone;
     }
     
+    ///////////////////////////////////////////////////
+    //
+    //	***	MENTÉS / BETÖLTÉS ***
+    //
+    ///////////////////////////////////////////////////
+    
+    // TODO dokumentálás
+    public static ArrayList<Marker> getGameStateToSave(ArrayList<Marker> currentGameState) {
+    	ArrayList<Marker> markersToSave = new ArrayList<Marker>();
+        for (int i = 0; i < currentGameState.size(); i++) {
+            Marker marker = currentGameState.get(i);
+            if (marker.markerState == currentPlayer) {
+                markersToSave.add(marker);
+            }
+        }
+        currentPlayer = changePlayer(currentPlayer);
+        for (int i = 0; i < currentGameState.size(); i++) {
+            Marker marker = currentGameState.get(i);
+            if (marker.markerState == currentPlayer) {
+                markersToSave.add(marker);
+            }
+        }
+        currentPlayer = changePlayer(currentPlayer);
+    	return markersToSave;
+    }
+    
+    //TODO dokumentáció
+    public static ArrayList<Marker> getGameStateToLoad() {
+    	return XML.loadGame();
+    }
+    
     /**
      * A {@code saveGame()} metódus végzi el a játék mentését.
-     * @param option Itt lehet megadni, hogy az adatokat xml-be legyenek mentve vagy egy távoli adatbázisba.
-     * @throws SQLException 
      */
-    public void saveGame(int option) {
-
-        logger.debug("Játék mentése.");
-        ArrayList<Marker> markersToSave = new ArrayList<Marker>();
-        for (int i = 0; i < markers.size(); i++) {
-            Marker marker = markers.get(i);
-            if (marker.markerState == currentPlayer) {
-                markersToSave.add(marker);
-            }
-        }
-        currentPlayer = changePlayer(currentPlayer);
-        for (int i = 0; i < markers.size(); i++) {
-            Marker marker = markers.get(i);
-            if (marker.markerState == currentPlayer) {
-                markersToSave.add(marker);
-            }
-        }
-        currentPlayer = changePlayer(currentPlayer);
-        
-        if (option == Constants.kSaveLoadOptionJDBC) {
-        	//JDBC jdbcManager = new JDBC(Constants.tableName);
-        	//jdbcManager.saveGame(markersToSave);
-
-        } else if (option == Constants.kSaveLoadOptionXML) {
-            XML.saveGame(markersToSave);
-        }
-        
-        
+    public void saveGame() {
+        XML.saveGame(getGameStateToSave(markers)); 
     }
     
     /**
      * A {@code loadGame()} metódus végzi el az elmentett játék betöltését.
      * @param option Itt lehet megadni, hogy az adatokat xml-ből legyenek betöltve vagy egy távoli adatbázisból.
-     * @throws SQLException 
      */
-    public void loadGame(int option) {
+    public void loadGame() {
 
         logger.debug("Játék betöltése az adatbázisból.");
         
-        ArrayList<Marker> loadedMarkers = new ArrayList<Marker>();
+        ArrayList<Marker> loadedMarkers = getGameStateToLoad();
         
-        if (option == Constants.kSaveLoadOptionJDBC) {
-        	//JDBC jdbcManager = new JDBC(Constants.tableName);
-            //loadedMarkers = jdbcManager.loadGame();
-
-        } else if (option == Constants.kSaveLoadOptionXML) {
-            loadedMarkers = XML.loadGame();
-        }
         // Ha nem kapjuk vissza mindet, akkor ne tegyük tönkre a felületet.
         if (loadedMarkers.size() != 12) {
         	logger.warn("Nem sikerült betölteni a játékállást.");
@@ -474,6 +482,39 @@ public class GameController extends Application {
             modifyFieldImage(marker, null);
         }
         currentPlayer = changePlayer(currentPlayer);
+    }
+    
+    
+    
+    ///////////////////////////////////////////////////
+    //
+    //	***	VIEW-VAL KAPCSOLATOS METÓDUSOK ***
+    //
+    ///////////////////////////////////////////////////
+    
+    //TODO dokumentáció
+    public static String getImageNameForState(int state) {
+    	switch (state) {
+		case Constants.kFieldStateEmpty:
+			return Constants.kEmptyFieldImageName;
+		case Constants.kFieldStateBlue:
+			return Constants.kBlueFieldImageName;
+		case Constants.kFieldStateRed:
+			return Constants.kRedFieldImageName;
+		case Constants.kFieldStateSelectable:
+			return Constants.kSelectableFieldImageName;
+			
+
+		default: return Constants.kEmptyFieldImageName;
+		}
+    }
+    
+    //TODO dokumentáció
+    public void makeVisibleOnScreen(ArrayList<Marker> currentGameState) {
+    	for	(int i = 0; i < currentGameState.size(); i++) {
+    		Marker m = currentGameState.get(i);
+    		modifyFieldImage(m, getImageNameForState(m.markerState));
+    	}
     }
     
     /**
@@ -502,6 +543,8 @@ public class GameController extends Application {
         }
     }
     
+    
+    //TODO ez már depreceated
     /**
      * A {@code modifyFieldImageAndState()} metódus segítségével lehet módosítani a játéktér egy {@code Field}jének a kinézetét.
      * @param marker A módosítani kívánt {@code Field}hez tartozó {@code Marker}.
