@@ -469,11 +469,7 @@ public class GameController extends Application {
         }
         
         logger.debug("Sikeres betöltés.");
-        
-        
-        
-        
-        
+
         for (int i = 0; i < loadedMarkers.size(); i++) {
             Marker marker = loadedMarkers.get(i);
             if (i == loadedMarkers.size()-1) currentPlayer = marker.markerState;
@@ -481,8 +477,6 @@ public class GameController extends Application {
         currentPlayer = changePlayer(currentPlayer);
     	return mergeMarkers(initEmptyMarkers(), loadedMarkers);
     }
-    
-    
     
     
     /**
