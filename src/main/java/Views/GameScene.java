@@ -84,7 +84,6 @@ public class GameScene extends StackPane {
     
     /**
      * A {@code GameScene()} egy konstruktor, ami az alkalmazás indulását követően kerül meghívásra.
-     * @param	title	Az ablak tetején megjelenő szöveg.
      */
     public GameScene() {
     	init();
