@@ -56,11 +56,16 @@ public class GameController extends Application {
     
 	
     //TODO dokumentálás
+    /**
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }
     
     //TODO dokumentálás
+    
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Hello World!");
@@ -92,13 +97,7 @@ public class GameController extends Application {
         currentPlayer = changePlayer(Constants.kPlayerNone);
     }
     
-    /**
-     * A {@code GameController()} egy konstruktor, ami egy {@code GameScene} típusú paramétert vár az inicializáláshoz.
-     * @param scene	{@code GameScene} típusú. A {@code scene} paraméter a felhasználói felületért felel.
-     */
-    /*public GameController(GameScene scene) {
-        
-    }*/
+    
     
     public static ArrayList<Marker> mergeMarkers(ArrayList<Marker> listToOverWrite, ArrayList<Marker> newValues) {
     	for (int i = 0; i < newValues.size(); i++) {
@@ -110,10 +109,9 @@ public class GameController extends Application {
 
     /**
      * A {@code initEmptyMarkers()} metódus az üres {@code Marker}eket fogja inicializálni.
+     * @return
      */
     public static ArrayList<Marker> initEmptyMarkers() {
-    	//TODO ezt valami más helyre rakni
-        //if (markers != null) markers.clear();
         ArrayList<Marker> emptyMarkers = new ArrayList<Marker>();
         for (int i = 0; i < Constants.kNumberOfRows; i++) {
             for (int j = 0; j < Constants.kNumberOfColumns; j++) {
@@ -129,6 +127,7 @@ public class GameController extends Application {
     
     /**
      * Az {@code initBluePlayer()} metódus a kék játékos inicializálásáért felel.
+     * @return
      */
     public static ArrayList<Marker> initBluePlayer() {
         logger.debug("Kék játékos betöltése:");
@@ -157,6 +156,7 @@ public class GameController extends Application {
     
     /**
      * Az {@code initRedPlayer()} metódus a piros játékos inicializálásáért felel.
+     * @return
      */
     public static ArrayList<Marker> initRedPlayer() {
         logger.debug("Kék játékos betöltése:");
@@ -183,7 +183,6 @@ public class GameController extends Application {
      
     /**
      * A játéktér egy mezőjére kattintva fog végrehajtódni ez a metódus, ahol vizsgálni fogjuk, hogy a kattintott mezőnek vannak-e elérhető szomszédjai, valamint itt fogunk dönteni a mozgatásról is.
-     * @param ae {@code ActionEvent} típusú. Ebből fog kiderülni, hogy melyik mezőre kattintottunk.
      */
     public void buttonPressed(Marker pressedMarker) {
         //Marker pressedMarker = (Marker)((Field)event.getSource()).marker;
@@ -416,6 +415,11 @@ public class GameController extends Application {
     ///////////////////////////////////////////////////
     
     // TODO dokumentálás
+    /**
+     * 
+     * @param currentGameState
+     * @return
+     */
     public static ArrayList<Marker> getGameStateToSave(ArrayList<Marker> currentGameState) {
     	ArrayList<Marker> markersToSave = new ArrayList<Marker>();
         for (int i = 0; i < currentGameState.size(); i++) {
@@ -435,53 +439,54 @@ public class GameController extends Application {
     	return markersToSave;
     }
     
-    //TODO dokumentáció
-    public static ArrayList<Marker> getGameStateToLoad() {
-    	return XML.loadGame();
-    }
-    
     /**
      * A {@code saveGame()} metódus végzi el a játék mentését.
      */
-    public void saveGame() {
-        XML.saveGame(getGameStateToSave(markers)); 
+    public static void saveGame(ArrayList<Marker> currentGameState) {
+        XML.saveGame(getGameStateToSave(currentGameState)); 
     }
     
+    //TODO dokumentáció
     /**
-     * A {@code loadGame()} metódus végzi el az elmentett játék betöltését.
-     * @param option Itt lehet megadni, hogy az adatokat xml-ből legyenek betöltve vagy egy távoli adatbázisból.
+     * 
+     * @return
      */
-    public void loadGame() {
-
-        logger.debug("Játék betöltése az adatbázisból.");
+    public static ArrayList<Marker> getGameStateToLoad() {
+    	logger.debug("Játék betöltése az adatbázisból.");
         
-        ArrayList<Marker> loadedMarkers = getGameStateToLoad();
-        
+        ArrayList<Marker> loadedMarkers = XML.loadGame();
         // Ha nem kapjuk vissza mindet, akkor ne tegyük tönkre a felületet.
+        System.out.println(loadedMarkers.size());
+
         if (loadedMarkers.size() != 12) {
         	logger.warn("Nem sikerült betölteni a játékállást.");
-        	return;
+        	return new ArrayList<Marker>();
         }
+        
         logger.debug("Sikeres betöltés.");
         
-        for (int i = 0; i < markers.size(); i++) {
-            Marker marker = markers.get(i);
-            marker.markerState = Constants.kFieldStateEmpty;
-            modifyFieldImage(marker, Constants.kEmptyFieldImageName);
-        }
         
-        freeMarkers = new ArrayList<Marker>();
-        lastMarker = null;
         
-        initEmptyMarkers();
+        
+        
         for (int i = 0; i < loadedMarkers.size(); i++) {
             Marker marker = loadedMarkers.get(i);
             if (i == loadedMarkers.size()-1) currentPlayer = marker.markerState;
-            ((Marker)markers.get(marker.getIndex())).markerState = marker.markerState;
-            
-            modifyFieldImage(marker, null);
         }
         currentPlayer = changePlayer(currentPlayer);
+    	return mergeMarkers(initEmptyMarkers(), loadedMarkers);
+    }
+    
+    
+    
+    
+    /**
+     * A {@code loadGame()} metódus végzi el az elmentett játék betöltését.
+     */
+    public void loadGame() {
+    	freeMarkers = new ArrayList<Marker>();
+        lastMarker = null;
+        makeVisibleOnScreen(getGameStateToLoad());
     }
     
     
@@ -493,6 +498,11 @@ public class GameController extends Application {
     ///////////////////////////////////////////////////
     
     //TODO dokumentáció
+    /**
+     * 
+     * @param state
+     * @return
+     */
     public static String getImageNameForState(int state) {
     	switch (state) {
 		case Constants.kFieldStateEmpty:
@@ -510,6 +520,10 @@ public class GameController extends Application {
     }
     
     //TODO dokumentáció
+    /**
+     * 
+     * @param currentGameState
+     */
     public void makeVisibleOnScreen(ArrayList<Marker> currentGameState) {
     	for	(int i = 0; i < currentGameState.size(); i++) {
     		Marker m = currentGameState.get(i);

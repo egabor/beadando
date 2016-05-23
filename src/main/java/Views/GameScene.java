@@ -133,7 +133,7 @@ public class GameScene extends StackPane {
      
                 @Override
                 public void handle(ActionEvent event) {
-                	gc.saveGame();
+                	gc.saveGame(gc.markers);
                 }
             });
     	}
