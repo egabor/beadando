@@ -1,4 +1,4 @@
-# Programozási technológiák
+# Programozási technológiák beadandó
 
 ## A program leírása
 
