@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class GameControllerTest {
 
 	/*@Test
-	public void testPlayerChangeRedToBlue() {
+public void testPlayerChangeRedToBlue() {
 		assertEquals(null, Constants.kPlayerBlue,  GameController.changePlayer(Constants.kPlayerRed));
 	}
 	
@@ -142,6 +142,7 @@ public class GameControllerTest {
 			}
 		}
 		assertTrue(true);
-	}*/
+
+	}
 	
 }

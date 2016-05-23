@@ -73,6 +73,7 @@ public class GameControllerTest {
 	
 	@Test
 	public void testWhenBlueWinColumn() {
+
 		ArrayList<Marker> gameState = new ArrayList<Marker>();
 		for (int i = 0; i < Constants.kNumberOfRows; i++) {
             for (int j = 0; j < Constants.kNumberOfColumns; j++) {
@@ -136,7 +137,7 @@ public class GameControllerTest {
 	}*/
 	
 	@Test
-	public void testFreeNeighbors1() {
+    public void testFreeNeighbors1() {
 		ArrayList<Marker> gameState = new ArrayList<Marker>();
 		for (int i = 0; i < Constants.kNumberOfRows; i++) {
             for (int j = 0; j < Constants.kNumberOfColumns; j++) {
@@ -380,4 +381,5 @@ public class GameControllerTest {
 		
 	}*/
 	
+
 }

@@ -15,6 +15,7 @@ import Utilities.Constants;
 import Utilities.XML;
 
  
+
 /**
  * A {@code GameController} osztályban foglal helyet a játéklogika.
  * Itt lesznek feldolgozva a felhasználói interakciók és innen lesz módosítva a felhasználói felület és a játéktér is.
@@ -71,6 +72,7 @@ public class GameController extends Application {
         primaryStage.show();
         
         freeMarkers = new ArrayList<Marker>();
+
         lastMarker = null; 
         initEmptyMarkers();
         initBluePlayer();
@@ -96,6 +98,7 @@ public class GameController extends Application {
         
     }*/
     
+
     /**
      * A {@code initEmptyMarkers()} metódus az üres {@code Marker}eket fogja inicializálni.
      */
@@ -399,6 +402,7 @@ public class GameController extends Application {
      * @throws SQLException 
      */
     public void saveGame(int option) {
+
         logger.debug("Játék mentése.");
         ArrayList<Marker> markersToSave = new ArrayList<Marker>();
         for (int i = 0; i < markers.size(); i++) {
@@ -419,6 +423,7 @@ public class GameController extends Application {
         if (option == Constants.kSaveLoadOptionJDBC) {
         	//JDBC jdbcManager = new JDBC(Constants.tableName);
         	//jdbcManager.saveGame(markersToSave);
+
         } else if (option == Constants.kSaveLoadOptionXML) {
             XML.saveGame(markersToSave);
         }
@@ -432,6 +437,7 @@ public class GameController extends Application {
      * @throws SQLException 
      */
     public void loadGame(int option) {
+
         logger.debug("Játék betöltése az adatbázisból.");
         
         ArrayList<Marker> loadedMarkers = new ArrayList<Marker>();
@@ -439,6 +445,7 @@ public class GameController extends Application {
         if (option == Constants.kSaveLoadOptionJDBC) {
         	//JDBC jdbcManager = new JDBC(Constants.tableName);
             //loadedMarkers = jdbcManager.loadGame();
+
         } else if (option == Constants.kSaveLoadOptionXML) {
             loadedMarkers = XML.loadGame();
         }

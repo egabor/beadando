@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+
 import Controllers.GameController;
 
 /**
@@ -26,6 +27,7 @@ import Controllers.GameController;
  * @author gaboreszenyi
  */
 public class GameScene extends StackPane {
+
     
     /**
      * A {@code logger} változó segítségével fogunk tudni naplózni.
@@ -41,17 +43,17 @@ public class GameScene extends StackPane {
      * A {@code textLabel} címkán fog megjelenni, hogy éppen melyik játékos következik, vagy hogy ki a nyertes.
      */
     public Label textLabel;
-    
+
     /**
      * A {@code resetButton} gomb alaphelyzetbe állítja vissza a játékot.
      */
     public Button resetButton;
-    
+
     /**
      * A {@code saveXMLButton} gomb elmenti a jelenlegi játékállást.
      */
     public Button saveXMLButton;
-    
+
     /**
      * A {@code loadXMLButton} gomb betölti az elmentett játékállást.
      */
@@ -69,6 +71,7 @@ public class GameScene extends StackPane {
      * A {@code containerPanel} felület fogja tartalmazni a felületen megjelenő összes elemet.
      */
     private VBox box;
+
     
     /**
      * A {@code fields} tömb tárolja a játéktér összes mezőjét.
@@ -93,7 +96,7 @@ public class GameScene extends StackPane {
     private void init() {     
         this.getChildren().add(getBox());
         initFields();
-    }
+	}
     
     /**
      * Az {@code initialize()} metódus összefoglalja az inicializáló metódusokat.
@@ -214,6 +217,7 @@ public class GameScene extends StackPane {
                     @Override
                     public void handle(ActionEvent event) {
                     	gc.buttonPressed(field.marker);
+
                     }
                 });
                 field.marker.markerState = Constants.kFieldStateEmpty;
@@ -225,6 +229,7 @@ public class GameScene extends StackPane {
             box.getChildren().add(fieldBox);
         }
         //containerPanel.add(fieldContainerPanel,BorderLayout.SOUTH);
+
     }
     
     
@@ -252,6 +257,7 @@ public class GameScene extends StackPane {
         fieldToChange.setStyle("-fx-background-image: url('"+getClass().getClassLoader().getResource(iconName)+"')");
         /*fieldContainerPanel.revalidate();
         fieldContainerPanel.repaint();*/
+
     }
     
     /**
@@ -268,4 +274,5 @@ public class GameScene extends StackPane {
     }
     
     
+
 }
