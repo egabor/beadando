@@ -133,7 +133,7 @@ public class GameScene extends StackPane {
      
                 @Override
                 public void handle(ActionEvent event) {
-                	gc.saveGame(Constants.kSaveLoadOptionXML);
+                	gc.saveGame();
                 }
             });
     	}
@@ -149,7 +149,7 @@ public class GameScene extends StackPane {
      
                 @Override
                 public void handle(ActionEvent event) {
-                	gc.loadGame(Constants.kSaveLoadOptionXML);
+                	gc.loadGame();
                 }
             });
     	}
