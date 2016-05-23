@@ -12,4 +12,4 @@ mvn clean install exec:java -Dexec.mainClass="Controllers.GameController"
 ### Egyéb követelmények
 
 * Minimum maven verzió: __3__
-* Minimum java verzió: __1.7__
+* Minimum java verzió: __1.8__
