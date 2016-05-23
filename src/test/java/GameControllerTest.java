@@ -376,20 +376,47 @@ public class GameControllerTest {
 		gameToSave = GameController.mergeMarkers(gameToSave, red);
 		gameToSave = GameController.mergeMarkers(gameToSave, blue);
 
-
 		GameController.saveGame(gameToSave, Constants.kPlayerBlue);
 		ArrayList<Marker> loadedGame = GameController.getGameStateToLoad();
 		if (loadedGame.size() == 0) assertTrue(false);
 
-        
-        //TODO ezt befejezni
         for (int i = 0; i < gameToSave.size(); i++) {
         	if (!gameToSave.get(i).equals(loadedGame.get(i))) {
         		assertTrue(false);
         	}
         }
         assertTrue(true);
-		
+	}
+	
+	@Test
+	public void testBlueMarkerName() {
+		assertTrue(GameController.getImageNameForState(Constants.kFieldStateBlue).equals(Constants.kBlueFieldImageName));
+	}
+	
+	@Test
+	public void testRedMarkerName() {
+		assertTrue(GameController.getImageNameForState(Constants.kFieldStateRed).equals(Constants.kRedFieldImageName));
+	}
+	
+	@Test
+	public void testEmptyMarkerName() {
+		assertTrue(GameController.getImageNameForState(Constants.kFieldStateEmpty).equals(Constants.kEmptyFieldImageName));
+	}
+	
+	@Test
+	public void testSelectableMarkerName() {
+		assertTrue(GameController.getImageNameForState(Constants.kFieldStateSelectable).equals(Constants.kSelectableFieldImageName));
+	}
+	
+	@Test
+	public void testDefaultMarkerName() {
+		assertTrue(GameController.getImageNameForState(123).equals(Constants.kFieldStateEmpty));
+	}
+	
+	@Test
+	public void testWrongName() {
+		assertTrue(!GameController.getImageNameForState(Constants.kFieldStateSelectable).equals(Constants.kRedFieldImageName));
+
 	}
 	
 
