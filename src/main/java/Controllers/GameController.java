@@ -97,8 +97,13 @@ public class GameController extends Application {
         currentPlayer = changePlayer(Constants.kPlayerNone);
     }
     
-    
-    
+    // TODO dokumentálás
+    /**
+     * 
+     * @param listToOverWrite
+     * @param newValues
+     * @return
+     */
     public static ArrayList<Marker> mergeMarkers(ArrayList<Marker> listToOverWrite, ArrayList<Marker> newValues) {
     	for (int i = 0; i < newValues.size(); i++) {
     		int indexToOverWrite = newValues.get(i).getIndex();
@@ -111,6 +116,7 @@ public class GameController extends Application {
      * A {@code initEmptyMarkers()} metódus az üres {@code Marker}eket fogja inicializálni.
      * @return
      */
+    // TODO return érték
     public static ArrayList<Marker> initEmptyMarkers() {
         ArrayList<Marker> emptyMarkers = new ArrayList<Marker>();
         for (int i = 0; i < Constants.kNumberOfRows; i++) {
@@ -159,7 +165,7 @@ public class GameController extends Application {
      * @return
      */
     public static ArrayList<Marker> initRedPlayer() {
-        logger.debug("Kék játékos betöltése:");
+        logger.debug("Piros játékos betöltése:");
         ArrayList<Marker> redMarkers = new ArrayList<Marker>();
         redMarkers.add(new Marker(0,0, Constants.kFieldStateRed));
         redMarkers.add(new Marker(1,0, Constants.kFieldStateRed));
@@ -420,30 +426,30 @@ public class GameController extends Application {
      * @param currentGameState
      * @return
      */
-    public static ArrayList<Marker> getGameStateToSave(ArrayList<Marker> currentGameState) {
+    public static ArrayList<Marker> getGameStateToSave(ArrayList<Marker> currentGameState, int player) {
     	ArrayList<Marker> markersToSave = new ArrayList<Marker>();
         for (int i = 0; i < currentGameState.size(); i++) {
             Marker marker = currentGameState.get(i);
-            if (marker.markerState == currentPlayer) {
+            if (marker.markerState == player) {
                 markersToSave.add(marker);
             }
         }
-        currentPlayer = changePlayer(currentPlayer);
+        player = changePlayer(player);
         for (int i = 0; i < currentGameState.size(); i++) {
             Marker marker = currentGameState.get(i);
-            if (marker.markerState == currentPlayer) {
+            if (marker.markerState == player) {
                 markersToSave.add(marker);
             }
         }
-        currentPlayer = changePlayer(currentPlayer);
+        player = changePlayer(player);
     	return markersToSave;
     }
     
     /**
      * A {@code saveGame()} metódus végzi el a játék mentését.
      */
-    public static void saveGame(ArrayList<Marker> currentGameState) {
-        XML.saveGame(getGameStateToSave(currentGameState)); 
+    public static void saveGame(ArrayList<Marker> currentGameState, int player) {
+        XML.saveGame(getGameStateToSave(currentGameState, player)); 
     }
     
     //TODO dokumentáció
@@ -456,7 +462,6 @@ public class GameController extends Application {
         
         ArrayList<Marker> loadedMarkers = XML.loadGame();
         // Ha nem kapjuk vissza mindet, akkor ne tegyük tönkre a felületet.
-        System.out.println(loadedMarkers.size());
 
         if (loadedMarkers.size() != 12) {
         	logger.warn("Nem sikerült betölteni a játékállást.");
