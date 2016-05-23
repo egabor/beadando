@@ -410,7 +410,7 @@ public class GameControllerTest {
 	
 	@Test
 	public void testDefaultMarkerName() {
-		assertTrue(GameController.getImageNameForState(123).equals(Constants.kFieldStateEmpty));
+		assertTrue(GameController.getImageNameForState(123).equals(Constants.kEmptyFieldImageName));
 	}
 	
 	@Test
