@@ -1,11 +1,6 @@
 package Views;
 
-
-
-
 import java.util.ArrayList;
-
-import javax.swing.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -277,7 +272,10 @@ public class GameScene extends StackPane {
         textLabel.setText(text);
     }
     
-    //TODO dokumentálás
+    /**
+     * Beállítja a view-nak a játéklogikáért felelős controllert.
+     * @param gameController A játéklogikáért felelős controller.
+     */
     public void setGC(GameController gameController) {
     	this.gc = gameController;
     }
