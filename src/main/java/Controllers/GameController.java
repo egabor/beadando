@@ -209,9 +209,11 @@ public class GameController extends Application {
         if (!freeMarkers.isEmpty()) {
             // Ez az ág hajtódik végre, ha a játékos már választott egy mezőt ahonnan lépni akar.
             for (int i = 0; i <freeMarkers.size(); i++) {
+            	// És itt megnézzük, hogy olyat nyomott-e a felhasználó, ahová szabad lépni.
                 Marker marker = freeMarkers.get(i);
                 modifyFieldImage(marker, Constants.kEmptyFieldImageName);
                 if (pressedMarker.getIndex() == marker.getIndex()) {
+                	// Ha igen, akkor átléptetjük.
                     willMove = true;
                     if (lastMarker != null) {
                         Marker markerToEmpty = markers.get(lastMarker.getIndex());
