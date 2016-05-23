@@ -55,16 +55,14 @@ public class GameController extends Application {
     
     
 	
-    //TODO dokumentálás
     /**
-     * 
-     * @param args
+     * Itt indul el az alkalmazás.
+     * @param args Bemenő argumentumok.
      */
     public static void main(String[] args) {
         launch(args);
     }
     
-    //TODO dokumentálás
     
     @Override
     public void start(Stage primaryStage) {
@@ -86,7 +84,9 @@ public class GameController extends Application {
         currentPlayer = changePlayer(Constants.kPlayerNone);
     }
     
-    //TODO dokumentálás
+    /**
+     * Alaphelyzetbe állítja játékot. A kezdőállapotot állítja elő.
+     */
     public void reset() {
     	freeMarkers = new ArrayList<Marker>();
         lastMarker = null; 
@@ -97,12 +97,11 @@ public class GameController extends Application {
         currentPlayer = changePlayer(Constants.kPlayerNone);
     }
     
-    // TODO dokumentálás
     /**
-     * 
-     * @param listToOverWrite
-     * @param newValues
-     * @return
+     * A metódus két listát egyesít.
+     * @param listToOverWrite Azokat a {@code Marker}eket tartalmazó lista, ami felül fogunk írni.
+     * @param newValues Azok az értékek, amelyekkel felül lesz írva a {@code listToOverWrite} lista.
+     * @return A két listából létrehozott új lista.
      */
     public static ArrayList<Marker> mergeMarkers(ArrayList<Marker> listToOverWrite, ArrayList<Marker> newValues) {
     	for (int i = 0; i < newValues.size(); i++) {
@@ -114,9 +113,8 @@ public class GameController extends Application {
 
     /**
      * A {@code initEmptyMarkers()} metódus az üres {@code Marker}eket fogja inicializálni.
-     * @return
+     * @return Az üres {@code Marker}ek.
      */
-    // TODO return érték
     public static ArrayList<Marker> initEmptyMarkers() {
         ArrayList<Marker> emptyMarkers = new ArrayList<Marker>();
         for (int i = 0; i < Constants.kNumberOfRows; i++) {
@@ -133,7 +131,7 @@ public class GameController extends Application {
     
     /**
      * Az {@code initBluePlayer()} metódus a kék játékos inicializálásáért felel.
-     * @return
+     * @return A kék játékos {@code Marker}ei.
      */
     public static ArrayList<Marker> initBluePlayer() {
         logger.debug("Kék játékos betöltése:");
@@ -162,7 +160,7 @@ public class GameController extends Application {
     
     /**
      * Az {@code initRedPlayer()} metódus a piros játékos inicializálásáért felel.
-     * @return
+     * @return A piros játékos {@code Marker}ei.
      */
     public static ArrayList<Marker> initRedPlayer() {
         logger.debug("Piros játékos betöltése:");
@@ -420,11 +418,11 @@ public class GameController extends Application {
     //
     ///////////////////////////////////////////////////
     
-    // TODO dokumentálás
     /**
-     * 
-     * @param currentGameState
-     * @return
+     * A játéktér egy egyszerűbb reprezentációját állítja elő, ami mentésre fog kerülni.
+     * @param currentGameState A játék állapota.
+     * @param player Az éppen aktív játékos.
+     * @return A menteni kívánt állapot.
      */
     public static ArrayList<Marker> getGameStateToSave(ArrayList<Marker> currentGameState, int player) {
     	ArrayList<Marker> markersToSave = new ArrayList<Marker>();
@@ -447,15 +445,16 @@ public class GameController extends Application {
     
     /**
      * A {@code saveGame()} metódus végzi el a játék mentését.
+     * @param currentGameState A játék állapota.
+     * @param player Az éppen aktív játékos.
      */
     public static void saveGame(ArrayList<Marker> currentGameState, int player) {
         XML.saveGame(getGameStateToSave(currentGameState, player)); 
     }
     
-    //TODO dokumentáció
     /**
-     * 
-     * @return
+     * Betölti az elmentett játékállást, illetve előállítja azt a reprezentációt, amelyet meg fogunk jeleníteni.
+     * @return A betölteni kívánt állapot.
      */
     public static ArrayList<Marker> getGameStateToLoad() {
     	logger.debug("Játék betöltése az adatbázisból.");
@@ -480,7 +479,7 @@ public class GameController extends Application {
     
     
     /**
-     * A {@code loadGame()} metódus végzi el az elmentett játék betöltését.
+     * A {@code loadGame()} metódus végzi el az elmentett játék betöltését és megjelenítését.
      */
     public void loadGame() {
     	freeMarkers = new ArrayList<Marker>();
@@ -497,11 +496,10 @@ public class GameController extends Application {
     //
     ///////////////////////////////////////////////////
     
-    //TODO dokumentáció
     /**
-     * 
-     * @param state
-     * @return
+     * Előállítja az állapothoz tartozó kép nevét. 
+     * @param state Bemenő állapot.
+     * @return Az állapothoz tartozó kép neve.
      */
     public static String getImageNameForState(int state) {
     	switch (state) {
@@ -519,10 +517,9 @@ public class GameController extends Application {
 		}
     }
     
-    //TODO dokumentáció
     /**
-     * 
-     * @param currentGameState
+     * Frissíti, illetve megjeleníti az adott játékteret.
+     * @param currentGameState A megjeleníteni kívánt játéktér állapota.
      */
     public void makeVisibleOnScreen(ArrayList<Marker> currentGameState) {
     	for	(int i = 0; i < currentGameState.size(); i++) {
@@ -558,7 +555,6 @@ public class GameController extends Application {
     }
     
     
-    //TODO ez már depreceated
     /**
      * A {@code modifyFieldImageAndState()} metódus segítségével lehet módosítani a játéktér egy {@code Field}jének a kinézetét.
      * @param marker A módosítani kívánt {@code Field}hez tartozó {@code Marker}.
