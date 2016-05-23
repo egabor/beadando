@@ -77,6 +77,7 @@ public class GameController extends Application {
         freeMarkers = new ArrayList<Marker>();
 
         lastMarker = null;
+        gs.saveXMLButton.setDisable(false);
         if (markers != null) markers.clear();
         markers = mergeMarkers(initEmptyMarkers(), initBluePlayer());
         markers = mergeMarkers(markers, initRedPlayer());
@@ -90,6 +91,7 @@ public class GameController extends Application {
     public void reset() {
     	freeMarkers = new ArrayList<Marker>();
         lastMarker = null; 
+        gs.saveXMLButton.setDisable(false);
         if (markers != null) markers.clear();
         markers = mergeMarkers(initEmptyMarkers(), initBluePlayer());
         markers = mergeMarkers(markers, initRedPlayer());
@@ -227,6 +229,7 @@ public class GameController extends Application {
                         winner = checkWinner(markers);
                         if (winner == Constants.kPlayerRed || winner == Constants.kPlayerBlue) {
                             // Nyertes esetén letiltjuk, hogy ne lehessen mozogni.
+                        	gs.saveXMLButton.setDisable(true);
                             currentPlayer = Constants.kPlayerNone;
                         }
                         
@@ -482,10 +485,17 @@ public class GameController extends Application {
      * A {@code loadGame()} metódus végzi el az elmentett játék betöltését és megjelenítését.
      */
     public void loadGame() {
+    	for (int i = 0; i < freeMarkers.size(); i++) {
+    		Marker m = freeMarkers.get(i);
+    		markers.get(m.getIndex()).markerState = Constants.kFieldStateEmpty;
+    	}
+    	gs.saveXMLButton.setDisable(false);
     	freeMarkers = new ArrayList<Marker>();
         lastMarker = null;
-        markers = getGameStateToLoad();
-        makeVisibleOnScreen(markers);
+        if (getGameStateToLoad().size() > 0) {
+        	markers = getGameStateToLoad();
+        	makeVisibleOnScreen(markers);
+        }
     }
     
     
