@@ -491,7 +491,8 @@ public class GameController extends Application {
     public void loadGame() {
     	freeMarkers = new ArrayList<Marker>();
         lastMarker = null;
-        makeVisibleOnScreen(getGameStateToLoad());
+        markers = getGameStateToLoad();
+        makeVisibleOnScreen(markers);
     }
     
     
