@@ -40,7 +40,7 @@ public class GameScene extends StackPane {
     private GameController gc;
     
     /**
-     * A {@code textLabel} címkán fog megjelenni, hogy éppen melyik játékos következik, vagy hogy ki a nyertes.
+     * A {@code textLabel} címkén fog megjelenni, hogy éppen melyik játékos következik, vagy hogy ki a nyertes.
      */
     public Label textLabel;
 
@@ -60,28 +60,21 @@ public class GameScene extends StackPane {
     public Button loadXMLButton;
     
     
-  //TODO dokumentálás, BESZÉDESEBB NÉV
     /**
-     * A {@code controlContainerPanel} felület fogja tartalmazni a {@code textLabel}t és a {@code resetButton}t.
+     * A {@code horizontalControlBox} felület fogja tartalmazni a képernyőn megjelenő gombokat.
      */
-    private HBox controlBox;
+    private HBox horizontalControlBox;
 	   
-  //TODO dokumentálás, BESZÉDESEBB NÉV
     /**
-     * A {@code containerPanel} felület fogja tartalmazni a felületen megjelenő összes elemet.
+     * A {@code verticalContainerBox} felület fogja tartalmazni a felületen megjelenő összes elemet.
      */
-    private VBox box;
+    private VBox verticalContainerBox;
 
     
     /**
      * A {@code fields} tömb tárolja a játéktér összes mezőjét.
      */
     public ArrayList<Field> fields;
-    
-    /**
-     * A {@code fieldContainerPanel} felület a játéktér mezőit fogja rattalmazni.
-     */
-    public JPanel fieldContainerPanel;
     
     
     
@@ -92,9 +85,11 @@ public class GameScene extends StackPane {
     	init();
     }
     
-  //TODO dokumentálás
+    /**
+     * Az {@code init()} metódus összerakja a felületet.
+     */
     private void init() {     
-        this.getChildren().add(getBox());
+        this.getChildren().add(getVerticalContainerBox());
         initFields();
 	}
     
@@ -103,11 +98,13 @@ public class GameScene extends StackPane {
      */
     public void initialize() {
         logger.debug("Új játék");
-        initFields();
-            
+        initFields();   
     }
     
-  //TODO dokumentálás
+    /**
+     * Előállítja a játék alaphelyzetbe állítására szolgáló gombot.
+     * @return Visszaadja a játék alaphelyzetbe állítására szolgáló gombot.
+     */
     private Button getResetButton() {
     	if (resetButton == null) {
     		resetButton = new Button();
@@ -124,7 +121,10 @@ public class GameScene extends StackPane {
     	return resetButton;
     }
     
-  //TODO dokumentálás
+    /**
+     * Előállítja a játékmentésre szolgáló gombot.
+     * @return Visszaadja a játékmentésre szolgáló gombot.
+     */
     private Button getSaveXMLButton() {
     	if (saveXMLButton == null) {
     		saveXMLButton = new Button();
@@ -140,7 +140,10 @@ public class GameScene extends StackPane {
     	return saveXMLButton;
     }
     
-  //TODO dokumentálás
+    /**
+     * Előállítja a játék betöltésére szolgáló gombot.
+     * @return Visszaadja a játék betöltésére szolgáló gombot.
+     */
     private Button getLoadXMLButton() {
     	if (loadXMLButton == null) {
     		loadXMLButton = new Button();
@@ -156,26 +159,36 @@ public class GameScene extends StackPane {
     	return loadXMLButton;
     }
     
-  //TODO dokumentálás
-    private VBox getBox() {
-    	if (box == null) {
-    		box = new VBox(getTextLabel(),getControlBox());
-    		box.setAlignment(Pos.TOP_CENTER);
-    		box.setSpacing(15.0f);
-    		controlBox.setAlignment(Pos.TOP_CENTER);    		
+    /**
+     * Előállítja az összes felületi elemet tartalmazó elemet.
+     * @return Visszaadja az összes felületi elemet tartalmazó {@code VBox}-ot.
+     */
+    private VBox getVerticalContainerBox() {
+    	if (verticalContainerBox == null) {
+    		verticalContainerBox = new VBox(getTextLabel(),getHorizontalControlBox());
+    		verticalContainerBox.setAlignment(Pos.TOP_CENTER);
+    		verticalContainerBox.setSpacing(15.0f);
+    		horizontalControlBox.setAlignment(Pos.TOP_CENTER);    		
     	}
-    	return box;
+    	return verticalContainerBox;
     }
     
-  //TODO dokumentálás
-    private HBox getControlBox() {
-    	if (controlBox == null) {
-    		controlBox = new HBox(getResetButton(),getSaveXMLButton(),getLoadXMLButton());
-    		controlBox.setSpacing(5.0f);
+    /**
+     * Előállítja a gombokat tartalmazó felületi elemet.
+     * @return Visszaadja a gonbokat tartalmazó {@code HBox}-ot.
+     */
+    private HBox getHorizontalControlBox() {
+    	if (horizontalControlBox == null) {
+    		horizontalControlBox = new HBox(getResetButton(),getSaveXMLButton(),getLoadXMLButton());
+    		horizontalControlBox.setSpacing(5.0f);
     	}
-    	return controlBox;
+    	return horizontalControlBox;
     }
-  //TODO dokumentálás
+
+    /**
+     * Előállítja a címkét, ami a játékállást fogja jelezni.
+     * @return Visszaad egy címkét.
+     */
     private Label getTextLabel() {
     	if (textLabel == null) {
     		textLabel = new Label();
@@ -209,15 +222,11 @@ public class GameScene extends StackPane {
                 field.setMinSize(Constants.kElementSize, Constants.kElementSize); 
                 field.setMaxSize(Constants.kElementSize, Constants.kElementSize);
 
-                
-               
-                
                 field.setOnAction(new EventHandler<ActionEvent>() {
                     
                     @Override
                     public void handle(ActionEvent event) {
                     	gc.buttonPressed(field.marker);
-
                     }
                 });
                 field.marker.markerState = Constants.kFieldStateEmpty;
@@ -226,7 +235,7 @@ public class GameScene extends StackPane {
             }
             fieldBox.setAlignment(Pos.TOP_CENTER);
             
-            box.getChildren().add(fieldBox);
+            verticalContainerBox.getChildren().add(fieldBox);
         }
         //containerPanel.add(fieldContainerPanel,BorderLayout.SOUTH);
 
