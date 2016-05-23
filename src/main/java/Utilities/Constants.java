@@ -38,6 +38,11 @@ public class Constants {
      */
     public static final int kFieldStateRed = 2;
     
+    /**
+     * A {@code kFieldStateSelectable} konstans értéke (jelenleg: {@value}) a játéktér azon elemeihez tartozik, amelyre a soron következő játékos léphet.
+     */
+    public static final int kFieldStateSelectable = 3;
+    
     
     
     /**
