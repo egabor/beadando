@@ -192,8 +192,7 @@ public class GameControllerTest {
 		testNeighbors.add(new Marker(1,4,Constants.kFieldStateEmpty));
 		testNeighbors.add(new Marker(1,6,Constants.kFieldStateEmpty));
 		testNeighbors.add(new Marker(2,5,Constants.kFieldStateEmpty));
-		//System.out.println(testNeighbors.size() +", "+freeNeighbors.size());
-		if (testNeighbors.size() != freeNeighbors.size()) { 
+		if (testNeighbors.size() != freeNeighbors.size()) {
 			assertTrue(false);
 		}
 		
@@ -202,7 +201,6 @@ public class GameControllerTest {
 			Boolean isEqual = false;
 			for (int j = 0; j < testNeighbors.size(); j++) {
 				Marker m2 = freeNeighbors.get(j);
-				//System.out.println(j);
 				if (m1.equals(m2)) {
 					isEqual = true;
 				}
@@ -230,8 +228,7 @@ public class GameControllerTest {
 		testNeighbors.add(new Marker(0,0,Constants.kFieldStateEmpty));
 		testNeighbors.add(new Marker(1,1,Constants.kFieldStateEmpty));
 		testNeighbors.add(new Marker(2,0,Constants.kFieldStateEmpty));
-		//System.out.println(testNeighbors.size() +", "+freeNeighbors.size());
-		if (testNeighbors.size() != freeNeighbors.size()) { 
+		if (testNeighbors.size() != freeNeighbors.size()) {
 			assertTrue(false);
 		}
 		
@@ -240,7 +237,6 @@ public class GameControllerTest {
 			Boolean isEqual = false;
 			for (int j = 0; j < testNeighbors.size(); j++) {
 				Marker m2 = freeNeighbors.get(j);
-				//System.out.println(j);
 				if (m1.equals(m2)) {
 					isEqual = true;
 				}
@@ -268,8 +264,7 @@ public class GameControllerTest {
 		testNeighbors.add(new Marker(2,0,Constants.kFieldStateEmpty));
 		testNeighbors.add(new Marker(3,1,Constants.kFieldStateEmpty));
 		
-		//System.out.println(testNeighbors.size() +", "+freeNeighbors.size());
-		if (testNeighbors.size() != freeNeighbors.size()) { 
+		if (testNeighbors.size() != freeNeighbors.size()) {
 			assertTrue(false);
 		}
 		
@@ -278,7 +273,6 @@ public class GameControllerTest {
 			Boolean isEqual = false;
 			for (int j = 0; j < testNeighbors.size(); j++) {
 				Marker m2 = freeNeighbors.get(j);
-				//System.out.println(j);
 				if (m1.equals(m2)) {
 					isEqual = true;
 				}
@@ -306,8 +300,7 @@ public class GameControllerTest {
 		testNeighbors.add(new Marker(2,9,Constants.kFieldStateEmpty));
 		testNeighbors.add(new Marker(3,8,Constants.kFieldStateEmpty));
 		
-		//System.out.println(testNeighbors.size() +", "+freeNeighbors.size());
-		if (testNeighbors.size() != freeNeighbors.size()) { 
+		if (testNeighbors.size() != freeNeighbors.size()) {
 			assertTrue(false);
 		}
 		
@@ -316,7 +309,6 @@ public class GameControllerTest {
 			Boolean isEqual = false;
 			for (int j = 0; j < testNeighbors.size(); j++) {
 				Marker m2 = freeNeighbors.get(j);
-				//System.out.println(j);
 				if (m1.equals(m2)) {
 					isEqual = true;
 				}
@@ -344,8 +336,7 @@ public class GameControllerTest {
 		testNeighbors.add(new Marker(0,8,Constants.kFieldStateEmpty));
 		testNeighbors.add(new Marker(1,9,Constants.kFieldStateEmpty));
 		
-		//System.out.println(testNeighbors.size() +", "+freeNeighbors.size());
-		if (testNeighbors.size() != freeNeighbors.size()) { 
+		if (testNeighbors.size() != freeNeighbors.size()) {
 			assertTrue(false);
 		}
 		
@@ -354,7 +345,6 @@ public class GameControllerTest {
 			Boolean isEqual = false;
 			for (int j = 0; j < testNeighbors.size(); j++) {
 				Marker m2 = freeNeighbors.get(j);
-				//System.out.println(j);
 				if (m1.equals(m2)) {
 					isEqual = true;
 				}
