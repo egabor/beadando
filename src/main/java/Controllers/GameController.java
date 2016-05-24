@@ -189,6 +189,7 @@ public class GameController extends Application {
      
     /**
      * A játéktér egy mezőjére kattintva fog végrehajtódni ez a metódus, ahol vizsgálni fogjuk, hogy a kattintott mezőnek vannak-e elérhető szomszédjai, valamint itt fogunk dönteni a mozgatásról is.
+     * @param pressedMarker A megnyomott gombhoz tartozó marker.
      */
     public void buttonPressed(Marker pressedMarker) {
         //Marker pressedMarker = (Marker)((Field)event.getSource()).marker;
